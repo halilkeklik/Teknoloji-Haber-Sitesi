@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WebOdevi.Models.Cat>
+
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Category</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CategoryCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CatName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CatName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "CategoryEdit", new { id=item.CatId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CatId }) |
+            @Html.ActionLink("Delete", "CategoryDelete", new { id=item.CatId })
+        </td>
+    </tr>
+}
+
+</table>
