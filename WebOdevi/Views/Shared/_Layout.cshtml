@@ -31,11 +31,40 @@
                         <a class="nav-link" href="#">Hakkımızda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
+                    @if (Convert.ToInt32(Session["usergroup"]) == 2)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">@Session["username"].ToString()</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Logout">Çıkış</a>
+                        </li>
+                    }
+                    else if (Convert.ToInt32( Session["usergroup"]) == 1)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/">Admin Paneli</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">@Session["username"].ToString()</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Logout">Çıkış</a>
+                        </li>
+                    }
+                    else 
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Register">Register</a>
+                        </li>
+                    }
+
+
                 </ul>
             </div>
         </div>
