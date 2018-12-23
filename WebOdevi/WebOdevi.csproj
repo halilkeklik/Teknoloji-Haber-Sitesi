@@ -1596,6 +1596,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\denemeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1625,6 +1626,8 @@
     <Content Include="Views\Admin\CategoryCreate.cshtml" />
     <Content Include="Views\Admin\CategoryEdit.cshtml" />
     <Content Include="Views\Admin\CategoryDelete.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
