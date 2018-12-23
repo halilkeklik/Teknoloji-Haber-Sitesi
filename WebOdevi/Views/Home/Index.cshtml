@@ -11,11 +11,19 @@
         <img class="card-img-top" src="@p.Photo" alt="@p.Name">
         <div class="card-body">
             <h2 class="card-title">@p.Name</h2>
-            <p class="card-text">@p.Context</p>
+            <p class="card-text">
+            @if (p.Context.Length > 150)
+            {
+                <p>@Html.Raw(p.Context.Substring(0, 100)) ... </p>
+            }
+            else
+            {
+               <p>@p.Context ... </p>
+            }
             <a href="/Home/Post/@p.PostId" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-            @p.Time tarihinde @p.User.UserFullName tarafından yayınlandı.
+            Kategori : @p.Cat.CatName | @p.Time tarihinde @p.User.UserFullName tarafından yayınlandı.
         </div>
     </div>
 }
