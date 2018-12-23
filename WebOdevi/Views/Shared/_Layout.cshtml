@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Kişisel Blog</title>
+    <title>@ViewBag.Title</title>
     <!-- Bootstrap core CSS -->
     <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/">
                             Home
                             <span class="sr-only">(current)</span>
                         </a>
@@ -33,38 +33,46 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
-                    @if (Convert.ToInt32(Session["usergroup"]) == 2)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">@Session["username"].ToString()</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/User/Logout">Çıkış</a>
-                        </li>
-                    }
-                    else if (Convert.ToInt32( Session["usergroup"]) == 1)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Admin/">Admin Paneli</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">@Session["username"].ToString()</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/User/Logout">Çıkış</a>
-                        </li>
-                    }
-                    else 
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/User/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/User/Register">Register</a>
-                        </li>
-                    }
+
+                    <div class="dropdown">
+                        @if (Convert.ToInt32(Session["usergroup"]) == 2)
+                        {<a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Session["username"].ToString()
+                            </a>
+
+                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                             <a class="dropdown-item" href="/User/Detail/@Session["userid"]">My Profile</a>
+                             <a class="dropdown-item" href="/User/Edit/@Session["userid"]">Settings</a>
+                             <div class="dropdown-divider"></div>
+                             <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                         </div>
+                        }
+                        else if (Convert.ToInt32(Session["usergroup"]) == 1)
+                        {<a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Session["username"].ToString()
+                            </a>
+
+                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                             <a class="dropdown-item" href="/User/Detail/@Session["userid"]">My Profile</a>
+                             <a class="dropdown-item" href="/User/Edit/@Session["userid"]">Settings</a>
+                             <a target="_blank" class="dropdown-item" href="/Admin/">Admin Panel</a>
+                             <div class="dropdown-divider"></div>
+                             <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                         </div>
+                        }
+                        else
+                        {<a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Guest
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/User/Login">Login</a>
+                                <a class="dropdown-item" href="/User/Register">Register</a>
+                            </div>
+                        }
 
 
+                    </div>
                 </ul>
             </div>
         </div>
@@ -143,6 +151,24 @@
         </div>
         <!-- /.container -->
     </footer>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/User/Logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript -->
     <script src="~/Content/vendor/jquery/jquery.min.js"></script>
     <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

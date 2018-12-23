@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebOdevi.Models;
@@ -11,11 +12,11 @@ namespace WebOdevi.Controllers
     {
         webodevDB db = new webodevDB();
         // GET: User
+
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Home");
         }
-
         public ActionResult Register()
         {
             return View();
@@ -76,5 +77,39 @@ namespace WebOdevi.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Detail(int id)
+        {
+            var user = db.User.Where(u => u.UserId == id).SingleOrDefault();
+            return View(user);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var user = db.User.Where(u => u.UserId == id).SingleOrDefault();
+            if (Convert.ToInt32(Session["userid"]) != user.UserId)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(User user, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var usernow = db.User.Where(u => u.UserId == id).SingleOrDefault();
+                usernow.UserName = user.UserName;
+                usernow.UserPass = user.UserPass;
+                usernow.UserMail = user.UserMail;
+                usernow.UserFullName = user.UserFullName;
+                db.SaveChanges();
+                Session["username"] = user.UserName;
+                return RedirectToAction("Detail", "User", new { id = usernow.UserId });
+            }
+            else
+                return View();
+            
+        }
     }
 }

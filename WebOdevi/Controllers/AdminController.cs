@@ -36,6 +36,8 @@ namespace WebOdevi.Controllers
         {
             try
             {
+                post.Time = DateTime.Now;
+                post.UserId = Convert.ToInt32(Session["userid"]);
                 // TODO: Add insert logic here
                 db.Post.Add(post);
                 db.SaveChanges();

@@ -12,6 +12,7 @@ namespace WebOdevi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            Comment = new HashSet<Comment>();
             Post = new HashSet<Post>();
         }
 
@@ -30,6 +31,9 @@ namespace WebOdevi.Models
 
         [StringLength(50)]
         public string UserMail { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment { get; set; }
 
         public virtual Group Group { get; set; }
 

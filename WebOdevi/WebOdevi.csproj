@@ -1602,6 +1602,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cat.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Slider.cs" />
@@ -1626,6 +1627,9 @@
     <Content Include="Views\User\Login.cshtml" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Home\Post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

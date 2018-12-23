@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebOdevi.Models.Post>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 </br>
@@ -8,7 +8,7 @@
 @foreach (var p in Model)
 {
     <div class="card mb-4">
-        <img class="card-img-top" src="@p.Photo" alt="@p.Name">
+        <img class="card-img-top" src="@p.Photo" alt="@p.Name" width="750" height="300">
         <div class="card-body">
             <h2 class="card-title">@p.Name</h2>
             <p class="card-text">
@@ -23,7 +23,7 @@
             <a href="/Home/Post/@p.PostId" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-            Kategori : @p.Cat.CatName | @p.Time tarihinde @p.User.UserFullName tarafından yayınlandı.
+            Kategori : @p.Cat.CatName | @p.Time tarihinde <a href="/User/Detail/@p.UserId">@p.User.UserFullName</a> tarafından yayınlandı.
         </div>
     </div>
 }

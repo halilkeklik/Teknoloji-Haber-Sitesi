@@ -13,6 +13,7 @@ namespace WebOdevi.Models
         }
 
         public virtual DbSet<Cat> Cat { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<Slider> Slider { get; set; }
