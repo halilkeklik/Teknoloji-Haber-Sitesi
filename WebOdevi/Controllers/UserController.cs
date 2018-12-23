@@ -31,6 +31,7 @@ namespace WebOdevi.Controllers
                 db.SaveChanges();
                 Session["userid"] = user.UserId;
                 Session["username"] = user.UserName;
+                Session["usergroup"] = user.GroupId;
                 return RedirectToAction("Index", "Home");
             }
             else
