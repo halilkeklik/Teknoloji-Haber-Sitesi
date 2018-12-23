@@ -1,7 +1,22 @@
-﻿
+﻿@model IEnumerable<WebOdevi.Models.Post>
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br /><br />
-<h2>Index</h2>
-bu bir deneme yazısı olabilr mi?
+</br>
+<!-- Blog Post -->
+@foreach (var p in Model)
+{
+    <div class="card mb-4">
+        <img class="card-img-top" src="@p.Photo" alt="@p.Name">
+        <div class="card-body">
+            <h2 class="card-title">@p.Name</h2>
+            <p class="card-text">@p.Context</p>
+            <a href="/Home/Post/@p.PostId" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+            @p.Time tarihinde @p.User.UserFullName tarafından yayınlandı.
+        </div>
+    </div>
+}
+
