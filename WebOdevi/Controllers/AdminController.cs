@@ -9,9 +9,11 @@ using PagedList.Mvc;
 
 namespace WebOdevi.Controllers
 {
+    [Authorize.AuthUsers]
     public class AdminController : Controller
     {
-        webodevDB db = new webodevDB();
+        private webodevDB db = new webodevDB();
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -19,12 +21,12 @@ namespace WebOdevi.Controllers
         }
 
         #region // Post
+
         public ActionResult Post()
         {
             var posts = db.Post.ToList();
             return View(posts);
         }
-
 
         public ActionResult PostCreate()
         {
@@ -113,9 +115,9 @@ namespace WebOdevi.Controllers
             {
                 return View();
             }
-
         }
-        #endregion
+
+        #endregion // Post
         #region// Category
 
         public ActionResult Category()
@@ -145,6 +147,7 @@ namespace WebOdevi.Controllers
                 return View();
             }
         }
+
         public ActionResult CategoryEdit(int id)
         {
             var cat = db.Cat.Where(i => i.CatId == id).SingleOrDefault();
@@ -202,10 +205,11 @@ namespace WebOdevi.Controllers
             {
                 return View();
             }
-
         }
+
         #endregion
         #region // User
+
         public ActionResult Users()
         {
             var users = db.User.ToList();
@@ -234,7 +238,6 @@ namespace WebOdevi.Controllers
                 newuser.UserMail = user.UserMail;
                 newuser.UserFullName = user.UserFullName;
                 newuser.GroupId = user.GroupId;
-
 
                 db.SaveChanges();
 
@@ -275,8 +278,10 @@ namespace WebOdevi.Controllers
                 return View();
             }
         }
+
         #endregion
         #region // Comment
+
         public ActionResult Comment(int Page = 1)
         {
             var comments = db.Comment.OrderByDescending(p => p.CommentId).ToPagedList(Page, 10); ;
@@ -310,6 +315,7 @@ namespace WebOdevi.Controllers
                 return View();
             }
         }
+
         public ActionResult DeleteComment(int id)
         {
             var comment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
@@ -338,8 +344,8 @@ namespace WebOdevi.Controllers
             {
                 return View();
             }
-
         }
+
         #endregion
     }
 }

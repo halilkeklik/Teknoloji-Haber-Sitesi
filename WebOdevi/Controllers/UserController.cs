@@ -10,13 +10,14 @@ namespace WebOdevi.Controllers
 {
     public class UserController : Controller
     {
-        webodevDB db = new webodevDB();
+        private webodevDB db = new webodevDB();
         // GET: User
 
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Home");
         }
+
         public ActionResult Register()
         {
             return View();
@@ -55,6 +56,7 @@ namespace WebOdevi.Controllers
                     Session["userid"] = login.UserId;
                     Session["username"] = login.UserName;
                     Session["usergroup"] = login.GroupId;
+                    Session["usergroupname"] = login.Group.GroupName;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -109,7 +111,6 @@ namespace WebOdevi.Controllers
             }
             else
                 return View();
-            
         }
     }
 }
