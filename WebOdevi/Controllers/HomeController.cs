@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using WebOdevi.Models;
 using PagedList;
 using PagedList.Mvc;
+using System.Net;
+
 namespace WebOdevi.Controllers
 {
 
@@ -72,7 +74,7 @@ namespace WebOdevi.Controllers
         public ActionResult CreateComment(Comment comment)
         {
             comment.CommentDate = DateTime.Now;
-            comment.UserId =Convert.ToInt32(Session["userid"]);
+            comment.UserId = Convert.ToInt32(Session["userid"]);
             comment.PostId = Convert.ToInt32(Session["postid"]);
             db.Comment.Add(comment);
             db.SaveChanges();
@@ -81,6 +83,48 @@ namespace WebOdevi.Controllers
             return View();
         }
 
+        public ActionResult DeleteComment(int id)
+        {
+            var userid = Session["userid"];
+            var comment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+            var post = db.Post.Where(p => p.PostId == comment.PostId).SingleOrDefault();
+
+            if (comment.UserId == Convert.ToInt32(userid))
+            {
+                db.Comment.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("Post", "Home", new { id = post.PostId });
+            }
+            else
+                return HttpNotFound();
+        }
+
+        // POST: deneme/Delete/5
+        [HttpPost]
+        public ActionResult DeleteComment(int id, Comment comment)
+        {
+            try
+            {
+                if (comment.UserId == Convert.ToInt32(Session["userid"]))
+                {
+                    var comments = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+                    if (comments == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.Comment.Remove(comments);
+                    db.SaveChanges();
+                    return View();
+                }
+                else
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         public ActionResult CatWidget()
         {
@@ -89,7 +133,7 @@ namespace WebOdevi.Controllers
 
         public ActionResult Search(string search = null, int Page = 1)
         {
-            var searchend = db.Post.Where(p => p.Context.Contains(search)).OrderByDescending(i=>i.PostId).ToPagedList(Page, 3);
+            var searchend = db.Post.Where(p => p.Context.Contains(search)).OrderByDescending(i => i.PostId).ToPagedList(Page, 3);
             return View(searchend);
         }
 

@@ -60,41 +60,41 @@
             else
             {<!-- Comments Form -->
                 @*<div class="card my-4">
-                <h5 class="card-header">Leave a Comment:</h5>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <textarea id="yorum" typeof="text" class="form-control" rows="3"></textarea>
+                        <h5 class="card-header">Leave a Comment:</h5>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <textarea id="yorum" typeof="text" class="form-control" rows="3"></textarea>
+                                </div>
+                                <button id="send" class="btn btn-primary">Submit</button>
+                            </form>
                         </div>
-                        <button id="send" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>*@
-                {Html.RenderAction("CreateComment", "Home");}
+                    </div>*@
+                { Html.RenderAction("CreateComment", "Home"); }
             }
             @*<script type="text/javascript">
-                $(document).ready(function(){
-                    $("#send").click(function () {
-                        var dataId = $(this).data("id");
-                        var token = $('meta[name="csrf-token"]').attr('content');
-                        var yorumunuz = $("#yorum").val();
-                        if (yorumunuz == '') {
-                            alert("Enter Some Text In Textarea");
-                        }
-                        else {
-                            $.ajax({
-                                type: 'POST',
-                                url: '/Home/Comment/',
-                                data: { comment: yorumunuz, postids:@Model.PostId},
-                                dataType: 'json',
-                                cache: false,
-                                success: function (data) { },
-                            })
+                            $(document).ready(function(){
+                                $("#send").click(function () {
+                                    var dataId = $(this).data("id");
+                                    var token = $('meta[name="csrf-token"]').attr('content');
+                                    var yorumunuz = $("#yorum").val();
+                                    if (yorumunuz == '') {
+                                        alert("Enter Some Text In Textarea");
+                                    }
+                                    else {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '/Home/Comment/',
+                                            data: { comment: yorumunuz, postids:@Model.PostId},
+                                            dataType: 'json',
+                                            cache: false,
+                                            success: function (data) { },
+                                        })
 
-                        }
-                  });
-    })
-            </script>*@
+                                    }
+                              });
+                })
+                        </script>*@
             <!-- Single Comment -->
             @foreach (var comment in Model.Comment.ToList())
             {
@@ -104,7 +104,7 @@
                         <h5 class="mt-0">
                             @comment.User.UserFullName <small>@comment.CommentDate</small>@if (Convert.ToInt32(Session["userid"]) == comment.UserId)
                             {
-                                <a href="/Home/YorumSil">Sil</a>
+                                <a href="/Home/DeleteComment/@comment.CommentId" data-id="@comment.CommentId" data-toggle="modal" class="silmeac">Sil</a>
                             }
                         </h5>
 
