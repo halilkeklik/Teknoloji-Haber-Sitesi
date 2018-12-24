@@ -11,17 +11,14 @@ namespace WebOdevi.Authorize
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session["usergroupname"] == "Admin")
+            if (HttpContext.Current.Session["usergroupname"] != null)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary{
-                {"Controller","Admin" },
-                {"Action","Index" }});
-            }
-            else if (filterContext.HttpContext.Session["usergroupname"] == "User")
-            {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary{
-                {"Controller","Home" },
-                {"Action","Index" }});
+                if (HttpContext.Current.Session["usergroupname"].ToString() != "Admin")
+                {
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary{
+                {"Controller","User" },
+                {"Action","Login" }});
+                }
             }
             else
             {

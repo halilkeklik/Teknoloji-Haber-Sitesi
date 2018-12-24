@@ -75,6 +75,7 @@ namespace WebOdevi.Controllers
             Session["userid"] = null;
             Session["username"] = null;
             Session["usergroup"] = null;
+            Session["usergroupname"] = null;
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
