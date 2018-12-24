@@ -8,7 +8,7 @@
 }<br />
 
 <div class="col-lg-14">
-    
+
     <!-- Blog Post -->
     @foreach (var p in Model)
     {
@@ -25,7 +25,7 @@
                 {
                     <p>@p.Context ... </p>
                 }
-                    <a href="/Home/Post/@p.PostId" class="btn btn-primary">Read More &rarr;</a>
+                    <a href="/Home/Post/@p.PostId" class="btn btn-primary">@Resources.lang.ReadMore &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
                     Kategori :<a href="/Home/Category/@p.CatId"> @p.Cat.CatName </a> | @p.Time tarihinde <a href="/User/Detail/@p.UserId">@p.User.UserFullName</a> tarafından yayınlandı.
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-    </div>
+</div>

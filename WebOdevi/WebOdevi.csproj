@@ -100,6 +100,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\blog-home.css" />
@@ -1586,9 +1588,18 @@
     <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="App_GlobalResources\lang.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>lang.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\lang.en.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>lang.en.designer.cs</LastGenOutput>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1600,6 +1611,16 @@
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\lang.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lang.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\lang.en.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lang.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\denemeController.cs" />
@@ -1632,8 +1653,6 @@
     <Content Include="Views\Admin\CategoryDelete.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Detail.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
@@ -1647,6 +1666,7 @@
     <Content Include="Views\Home\CreateComment.cshtml" />
     <Content Include="Views\Admin\Comment.cshtml" />
     <Content Include="Views\Admin\EditComment.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -41,38 +41,52 @@
                                 @Session["username"].ToString()
                             </a>
 
-                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                             <a class="dropdown-item" href="/User/Detail/@Session["userid"]">My Profile</a>
-                             <a class="dropdown-item" href="/User/Edit/@Session["userid"]">Settings</a>
-                             <div class="dropdown-divider"></div>
-                             <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                         </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/User/Detail/@Session["userid"]">My Profile</a>
+                                <a class="dropdown-item" href="/User/Edit/@Session["userid"]">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                            </div>
                         }
                         else if (Convert.ToInt32(Session["usergroup"]) == 1)
                         {<a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @Session["username"].ToString()
                             </a>
 
-                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                             <a class="dropdown-item" href="/User/Detail/@Session["userid"]">My Profile</a>
-                             <a class="dropdown-item" href="/User/Edit/@Session["userid"]">Settings</a>
-                             <a target="_blank" class="dropdown-item" href="/Admin/">Admin Panel</a>
-                             <div class="dropdown-divider"></div>
-                             <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                         </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/User/Detail/@Session["userid"]">My Profile</a>
+                                <a class="dropdown-item" href="/User/Edit/@Session["userid"]">Settings</a>
+                                <a target="_blank" class="dropdown-item" href="/Admin/">Admin Panel</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                            </div>
                         }
                         else
                         {<a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Guest
+                                @Resources.lang.Guest
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/User/Login">Login</a>
-                                <a class="dropdown-item" href="/User/Register">Register</a>
+                                <a class="dropdown-item" href="/User/Login">@Resources.lang.Login</a>
+                                <a class="dropdown-item" href="/User/Register">@Resources.lang.Register</a>
                             </div>
                         }
-
-
+                    </div>
+                    <div class="dropdown right">
+                        @if (HttpContext.Current.Session["Culture"].ToString() == "tr")
+                        {
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">TR <span class="caret"></span></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li class="dropdown-item">@Html.ActionLink("EN", "ChangeCulture", "Home", new { lang = "en", returnurl = this.Request.RawUrl }, null)</li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">EN <span class="caret"></span></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li class="dropdown-item">@Html.ActionLink("TR", "ChangeCulture", "Home", new { lang = "tr", returnurl = this.Request.RawUrl }, null)</li>
+                            </ul>
+                        }
                     </div>
                 </ul>
             </div>
@@ -93,9 +107,9 @@
                 @{Html.RenderAction("CatWidget", "Home");}
                 <!-- Side Widget -->
                 <div class="card my-4">
-                    <h5 class="card-header">Side Widget</h5>
+                    <h5 class="card-header">@Resources.lang.SaatWidget</h5>
                     <div class="card-body">
-                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        <script language="javascript" src="http://ic.sitekodlari.com/saat0.js"></script>
                     </div>
                 </div>
             </div>
@@ -115,15 +129,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@Resources.lang.CikmayaHazir</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">@Resources.lang.SelectLogout</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/User/Logout">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">@Resources.lang.Cancel</button>
+                    <a class="btn btn-primary" href="/User/Logout">@Resources.lang.Logout</a>
                 </div>
             </div>
         </div>
