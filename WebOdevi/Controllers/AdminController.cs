@@ -310,6 +310,36 @@ namespace WebOdevi.Controllers
                 return View();
             }
         }
+        public ActionResult DeleteComment(int id)
+        {
+            var comment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+            if (comment == null)
+                return HttpNotFound();
+            return View(comment);
+        }
+
+        // POST: deneme/Delete/5
+        [HttpPost]
+        public ActionResult DeleteComment(int id, FormCollection collection)
+        {
+            try
+            {
+                var comment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+
+                db.Comment.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("Comment");
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
         #endregion
     }
 }

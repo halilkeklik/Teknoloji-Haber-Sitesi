@@ -1652,6 +1652,7 @@
     <Content Include="Views\Admin\Comment.cshtml" />
     <Content Include="Views\Admin\EditComment.cshtml" />
     <Content Include="Views\Home\DeleteComment.cshtml" />
+    <Content Include="Views\Admin\DeleteComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
