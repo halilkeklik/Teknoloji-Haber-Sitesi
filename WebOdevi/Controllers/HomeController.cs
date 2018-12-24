@@ -6,17 +6,18 @@ using System.Web.Mvc;
 using WebOdevi.Models;
 using PagedList;
 using PagedList.Mvc;
-using System.Globalization;
+using System.Net;
 
 namespace WebOdevi.Controllers
 {
+
     public class HomeController : Controller
     {
         // GET: Home
-        private webodevDB db = new webodevDB();
-
+        webodevDB db = new webodevDB();
         public ActionResult Index(int Page = 1)
         {
+
             var post = db.Post.OrderByDescending(p => p.PostId).ToPagedList(Page, 3);
             return View(post);
         }
@@ -82,6 +83,49 @@ namespace WebOdevi.Controllers
             return View();
         }
 
+        public ActionResult DeleteComment(int id)
+        {
+            var userid = Session["userid"];
+            var comment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+            var post = db.Post.Where(p => p.PostId == comment.PostId).SingleOrDefault();
+
+            if (comment.UserId == Convert.ToInt32(userid))
+            {
+                db.Comment.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("Post", "Home", new { id = post.PostId });
+            }
+            else
+                return HttpNotFound();
+        }
+
+        // POST: deneme/Delete/5
+        [HttpPost]
+        public ActionResult DeleteComment(int id, Comment comment)
+        {
+            try
+            {
+                if (comment.UserId == Convert.ToInt32(Session["userid"]))
+                {
+                    var comments = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+                    if (comments == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.Comment.Remove(comments);
+                    db.SaveChanges();
+                    return View();
+                }
+                else
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         public ActionResult CatWidget()
         {
             return View(db.Cat.ToList());
@@ -93,10 +137,5 @@ namespace WebOdevi.Controllers
             return View(searchend);
         }
 
-        public ActionResult ChangeCulture(string lang, string returnUrl)
-        {
-            Session["Culture"] = new CultureInfo(lang);
-            return Redirect(returnUrl);
-        }
     }
 }
