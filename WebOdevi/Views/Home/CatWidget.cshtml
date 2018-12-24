@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebOdevi.Models.Cat>
+
+@{Layout = null; }
+<div class="card my-4">
+    <h5 class="card-header">Categories</h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6">
+                @foreach (var item in Model)
+                {
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="/Home/Category/@item.CatId">@item.CatName</a>
+                        </li>
+                    </ul>
+                }
+                </div>
+        </div>
+    </div>
+</div>
+
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CatName)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatName)
+            </td>
+        </tr>
+    }
+
+    </table>*@

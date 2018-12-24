@@ -48,7 +48,15 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Context)
+            @if (item.Context.Length > 150)
+            {
+                <p>@Html.Raw(item.Context.Substring(0, 100)) ... </p>
+            }
+            else
+            {
+                <p>@item.Context ... </p>
+            }
+            @*@Html.DisplayFor(modelItem => item.Context)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Photo)
@@ -61,7 +69,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "PostEdit", new { id=item.PostId }) |
-            @Html.ActionLink("Details", "PostDetails", new { id=item.PostId }) |
+            <a href="/Home/Post/@item.PostId">Details</a>|
             @Html.ActionLink("Delete", "PostDelete", new { id=item.PostId })
         </td>
     </tr>

@@ -1,0 +1,43 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model PagedList<WebOdevi.Models.Post>
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<br />
+
+ <div class="col-lg-14">
+     <!-- Blog Post -->
+     <h2>Arama Sonuçları</h2>
+     @foreach (var p in Model)
+     {
+
+         <div class="card mb-4">
+             <img class="card-img-top" src="@p.Photo" alt="@p.Name" width="750" height="300">
+             <div class="card-body">
+                 <h2 class="card-title">@p.Name</h2>
+                 <p class="card-text">
+                     @if (p.Context.Length > 150)
+                     {
+                     <p>@Html.Raw(p.Context.Substring(0, 100)) ... </p>
+                 }
+                 else
+                 {
+                     <p>@p.Context ... </p>
+                 }
+                     <a href="/Home/Post/@p.PostId" class="btn btn-primary">Read More &rarr;</a>
+                 </div>
+                 <div class="card-footer text-muted">
+                     Kategori : @p.Cat.CatName | @p.Time tarihinde <a href="/User/Detail/@p.UserId">@p.User.UserFullName</a> tarafından yayınlandı.
+                 </div>
+             </div>
+         }
+     <div class="row">
+         <div class="col-md-8 text-center">
+             <div class="pagedList pagination">
+                 @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+             </div>
+         </div>
+     </div>
+ </div>

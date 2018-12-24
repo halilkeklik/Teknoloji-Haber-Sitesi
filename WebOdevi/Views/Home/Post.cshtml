@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
-        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
     @*$(document).ready(function () {
@@ -24,29 +22,7 @@
 
                  });
         })*@
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#gonder").click(function () {
-                var newcomment = $("#comment").val();
-                $.ajax({
-                    url: '/Home/Comment/',
-                    data: { comment: newcomment, PostId:@Model.PostId},
-                    type: 'POST',
-                    dataType: 'json',
-                })
-            })
-        })
-        $(document).ready(function () {
-            $('#gonder').attr('disabled', true);
-            $('#comment').keyup(function () {
-                if ($(this).val().length != 0) {
-                    $('#gonder').attr('disabled', false);
-                }
-                else
-                    $('#gonder').attr('disabled', true);
-            })
-        });
-    </script>
+
     <div class="row">
         <!-- Post Content Column -->
         <div class="col-lg-14">
@@ -58,7 +34,7 @@
             </p>
             <hr>
             <!-- Date/Time -->
-            <p>@Model.Cat.CatName kategorisine @Model.Time tarihinde gönderildi</p>
+            <p><a href="/Home/Category/@Model.CatId">@Model.Cat.CatName</a> kategorisine @Model.Time tarihinde gönderildi</p>
             <hr>
             <!-- Preview Image -->
             <img class="img-fluid rounded" src="@Model.Photo" alt="@Model.Name" width="900" height="300">
@@ -83,30 +59,55 @@
             }
             else
             {<!-- Comments Form -->
-                <div class="card my-4">
-                    <h5 class="card-header">Leave a Comment:</h5>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <textarea id="comment" typeof="text" class="form-control" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" id="gonder" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
+                @*<div class="card my-4">
+                <h5 class="card-header">Leave a Comment:</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <textarea id="yorum" typeof="text" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button id="send" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
+            </div>*@
+                {Html.RenderAction("CreateComment", "Home");}
             }
+            @*<script type="text/javascript">
+                $(document).ready(function(){
+                    $("#send").click(function () {
+                        var dataId = $(this).data("id");
+                        var token = $('meta[name="csrf-token"]').attr('content');
+                        var yorumunuz = $("#yorum").val();
+                        if (yorumunuz == '') {
+                            alert("Enter Some Text In Textarea");
+                        }
+                        else {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Home/Comment/',
+                                data: { comment: yorumunuz, postids:@Model.PostId},
+                                dataType: 'json',
+                                cache: false,
+                                success: function (data) { },
+                            })
 
+                        }
+                  });
+    })
+            </script>*@
             <!-- Single Comment -->
             @foreach (var comment in Model.Comment.ToList())
             {
                 <div class="media mb-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
-                        <h5 class="mt-0">@comment.User.UserFullName <small>@comment.CommentDate</small>@if (Convert.ToInt32(Session["userid"]) == comment.UserId)
-                        {
-                            <a href="/Home/YorumSil">Sil</a>
-                        }</h5>
-                        
+                        <h5 class="mt-0">
+                            @comment.User.UserFullName <small>@comment.CommentDate</small>@if (Convert.ToInt32(Session["userid"]) == comment.UserId)
+                            {
+                                <a href="/Home/YorumSil">Sil</a>
+                            }
+                        </h5>
+
                         @comment.CommentContent
 
                     </div>

@@ -1,15 +1,15 @@
 ﻿@using PagedList
 @using PagedList.Mvc
-
 @model PagedList<WebOdevi.Models.Post>
+
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }<br />
 
 <div class="col-lg-14">
-    
     <!-- Blog Post -->
+    <h2>Kategori İçeriği</h2>
     @foreach (var p in Model)
     {
         <div class="card mb-4">
@@ -28,7 +28,7 @@
                     <a href="/Home/Post/@p.PostId" class="btn btn-primary">Read More &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
-                    Kategori :<a href="/Home/Category/@p.CatId"> @p.Cat.CatName </a> | @p.Time tarihinde <a href="/User/Detail/@p.UserId">@p.User.UserFullName</a> tarafından yayınlandı.
+                    Kategori : @p.Cat.CatName | @p.Time tarihinde <a href="/User/Detail/@p.UserId">@p.User.UserFullName</a> tarafından yayınlandı.
                 </div>
             </div>
         }
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
