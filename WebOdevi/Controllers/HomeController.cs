@@ -7,17 +7,17 @@ using WebOdevi.Models;
 using PagedList;
 using PagedList.Mvc;
 using System.Net;
+using System.Globalization;
 
 namespace WebOdevi.Controllers
 {
-
     public class HomeController : Controller
     {
         // GET: Home
-        webodevDB db = new webodevDB();
+        private webodevDB db = new webodevDB();
+
         public ActionResult Index(int Page = 1)
         {
-
             var post = db.Post.OrderByDescending(p => p.PostId).ToPagedList(Page, 3);
             return View(post);
         }
@@ -137,5 +137,10 @@ namespace WebOdevi.Controllers
             return View(searchend);
         }
 
+        public ActionResult ChangeCulture(string lang, string returnUrl)
+        {
+            Session["Culture"] = new CultureInfo(lang);
+            return Redirect(returnUrl);
+        }
     }
 }
