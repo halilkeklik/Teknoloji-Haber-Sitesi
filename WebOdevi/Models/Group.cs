@@ -17,6 +17,7 @@ namespace WebOdevi.Models
 
         public int GroupId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string GroupName { get; set; }
 

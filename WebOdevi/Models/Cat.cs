@@ -17,6 +17,7 @@ namespace WebOdevi.Models
 
         public int CatId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string CatName { get; set; }
 

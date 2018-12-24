@@ -17,20 +17,23 @@ namespace WebOdevi.Models
 
         public int PostId { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Name { get; set; }
 
+        [Required]
         public string Context { get; set; }
 
+        [Required]
         [StringLength(250)]
         public string Photo { get; set; }
 
         [Column(TypeName = "smalldatetime")]
-        public DateTime? Time { get; set; }
+        public DateTime Time { get; set; }
 
-        public int? CatId { get; set; }
+        public int CatId { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         public int? Reads { get; set; }
 

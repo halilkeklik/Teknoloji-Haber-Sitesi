@@ -18,17 +18,21 @@ namespace WebOdevi.Models
 
         public int UserId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string UserName { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string UserPass { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string UserFullName { get; set; }
 
-        public int? GroupId { get; set; }
+        public int GroupId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string UserMail { get; set; }
 

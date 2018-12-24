@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebOdevi.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace WebOdevi.Controllers
 {
@@ -201,6 +203,112 @@ namespace WebOdevi.Controllers
                 return View();
             }
 
+        }
+        #endregion
+        #region // User
+        public ActionResult Users()
+        {
+            var users = db.User.ToList();
+            return View(users);
+        }
+
+        public ActionResult UserEdit(int id)
+        {
+            var user = db.User.Where(i => i.UserId == id).SingleOrDefault();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.GroupId = new SelectList(db.Group, "GroupId", "GroupName", user.GroupId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult UserEdit(int id, User user)
+        {
+            try
+            {
+                var newuser = db.User.Where(i => i.UserId == id).SingleOrDefault();
+                newuser.UserName = user.UserName;
+                newuser.UserPass = user.UserPass;
+                newuser.UserMail = user.UserMail;
+                newuser.UserFullName = user.UserFullName;
+                newuser.GroupId = user.GroupId;
+
+
+                db.SaveChanges();
+
+                return RedirectToAction("Users");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult UserDelete(int id)
+        {
+            var user = db.User.Where(i => i.UserId == id).SingleOrDefault();
+            if (user == null)
+                return HttpNotFound();
+            return View(user);
+        }
+
+        // POST: deneme/Delete/5
+        [HttpPost]
+        public ActionResult UserDelete(int id, FormCollection collection)
+        {
+            try
+            {
+                var users = db.User.Where(i => i.UserId == id).SingleOrDefault();
+                if (users == null)
+                {
+                    return HttpNotFound();
+                }
+
+                db.User.Remove(users);
+                db.SaveChanges();
+                return RedirectToAction("Users");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        #endregion
+        #region // Comment
+        public ActionResult Comment(int Page = 1)
+        {
+            var comments = db.Comment.OrderByDescending(p => p.CommentId).ToPagedList(Page, 10); ;
+            return View(comments);
+        }
+
+        public ActionResult EditComment(int id)
+        {
+            var comment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+        [HttpPost]
+        public ActionResult EditComment(int id, Comment comment)
+        {
+            try
+            {
+                var newcomment = db.Comment.Where(i => i.CommentId == id).SingleOrDefault();
+                newcomment.CommentContent = comment.CommentContent;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Comment");
+            }
+            catch
+            {
+                return View();
+            }
         }
         #endregion
     }

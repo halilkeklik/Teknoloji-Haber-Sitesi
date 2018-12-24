@@ -14,12 +14,12 @@ namespace WebOdevi.Models
         [StringLength(250)]
         public string CommentContent { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
-        public int? PostId { get; set; }
+        public int PostId { get; set; }
 
         [Column(TypeName = "smalldatetime")]
-        public DateTime? CommentDate { get; set; }
+        public DateTime CommentDate { get; set; }
 
         public virtual Post Post { get; set; }
 

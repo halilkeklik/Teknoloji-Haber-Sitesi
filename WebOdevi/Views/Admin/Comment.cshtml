@@ -1,0 +1,60 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList<WebOdevi.Models.Comment>
+
+
+@{
+    ViewBag.Title = "Comment";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Comment</h2>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<table class="table">
+    <tr>
+        <th>
+            Gönderi Adı
+        </th>
+        <th>
+            Kullanıcı Adı
+        </th>
+        <th>
+            Yorum
+        </th>
+        <th>
+            Tarih
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditComment", new { id = item.CommentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CommentId })
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="row">
+    <div class="col-md-8 text-center">
+        <div class="pagedList pagination">
+            @Html.PagedListPager(Model, Page => Url.Action("Comment", new { Page }), PagedListRenderOptions.Classic)
+        </div>
+    </div>
+</div>

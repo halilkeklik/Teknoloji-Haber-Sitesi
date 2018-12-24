@@ -21,6 +21,30 @@ namespace WebOdevi.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Cat>()
+                .HasMany(e => e.Post)
+                .WithRequired(e => e.Cat)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Group>()
+                .HasMany(e => e.User)
+                .WithRequired(e => e.Group)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Post>()
+                .HasMany(e => e.Comment)
+                .WithRequired(e => e.Post)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Comment)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Post)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
         }
     }
 }
