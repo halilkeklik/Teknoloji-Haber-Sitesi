@@ -183,4 +183,7 @@
   <data name="Users" xml:space="preserve">
     <value>Kullanıcılar</value>
   </data>
+  <data name="YorumSil" xml:space="preserve">
+    <value>Sil</value>
+  </data>
 </root>

@@ -104,7 +104,7 @@
                         <h5 class="mt-0">
                             @comment.User.UserFullName <small>@comment.CommentDate</small>@if (Convert.ToInt32(Session["userid"]) == comment.UserId)
                             {
-                                <a href="/Home/DeleteComment/@comment.CommentId" data-id="@comment.CommentId" data-toggle="modal" class="silmeac">Sil</a>
+                                <a href="/Home/DeleteComment/@comment.CommentId">@Resources.lang.YorumSil</a>
                             }
                         </h5>
 

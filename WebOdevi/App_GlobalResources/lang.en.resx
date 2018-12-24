@@ -183,4 +183,7 @@
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="YorumSil" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
