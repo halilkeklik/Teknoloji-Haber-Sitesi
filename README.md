@@ -3,10 +3,10 @@ Web Proglama Dersi Projesi
 Teknoloji haberi yayınlamak üzerine yapılan web sitesidir. 
 
 ## Özellikler
- * Kullanici Ozerllikleri
-    * Kayit olma
+ * Kullanıcı Özellikleri
+    * Kayıt olma
     * Haberlere yorum yapabilme
- * Admin Ozellikleri
-    * Kullanicilari yonetme
-    * Kullanici yorumlari yonetme
-    * Haberleri yonetme
+ * Admin Özellikleri
+    * Kullanıcıları yönetme
+    * Kullanıcı yorumları yönetme
+    * Haberleri yönetme
